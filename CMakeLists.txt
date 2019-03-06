@@ -401,13 +401,13 @@ if( M2LANG_INCLUDE_TESTS )
     get_property(LLVM_LIT_EXTRA_ARGS GLOBAL PROPERTY LLVM_LIT_EXTRA_ARGS)
     get_property(LLVM_ADDITIONAL_TEST_TARGETS
                  GLOBAL PROPERTY LLVM_ADDITIONAL_TEST_TARGETS)
-    add_lit_target(check-all
-      "Running all regression tests"
-      ${LLVM_LIT_TESTSUITES}
-      PARAMS ${LLVM_LIT_PARAMS}
-      DEPENDS ${LLVM_LIT_DEPENDS} ${LLVM_ADDITIONAL_TEST_TARGETS}
-      ARGS ${LLVM_LIT_EXTRA_ARGS}
-      )
+    #add_lit_target(check-all
+    #  "Running all regression tests"
+    #  ${LLVM_LIT_TESTSUITES}
+    #  PARAMS ${LLVM_LIT_PARAMS}
+    #  DEPENDS ${LLVM_LIT_DEPENDS} ${LLVM_ADDITIONAL_TEST_TARGETS}
+    #  ARGS ${LLVM_LIT_EXTRA_ARGS}
+    #  )
   endif()
 endif()
 
