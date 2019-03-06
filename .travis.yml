@@ -8,7 +8,7 @@ matrix:
       env: LLVM_VERSION=7.0.1
       compiler: gcc
     - os: linux
-      env: LLVM_VERSION=7.0.1
+      env: LLVM_VERSION=8.0.0-rc3
       compiler: clang
     - os: osx
       osx_image: xcode9.4
@@ -75,8 +75,6 @@ install:
       fi;
     fi
   - export LLVM_CMAKE_DIR="$($LLVM_ROOT_DIR/bin/llvm-config --cmakedir)" ;
-  - ls -l $LLVM_ROOT_DIR/bin
-  - ls -l $($LLVM_ROOT_DIR/bin/llvm-config --prefix)/bin
   - pip install --user lit
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then ld --version; fi
   - cmake --version
