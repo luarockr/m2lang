@@ -380,7 +380,7 @@ if( M2LANG_INCLUDE_TESTS )
   else()
     # Use our own gtest. This requires an adjustment of function add_unittest.
     function(add_unittest test_suite test_name)
-      set(LLVM_MAIN_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+      set(LLVM_MAIN_SRC_DIR ${CMAKE_SOURCE_DIR})
       _add_unittest(${ARGV})
     endfunction()
     add_subdirectory(utils/unittest)
