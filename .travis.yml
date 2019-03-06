@@ -75,6 +75,8 @@ install:
       fi;
     fi
   - export LLVM_CMAKE_DIR="$($LLVM_ROOT_DIR/bin/llvm-config --cmakedir)" ;
+  - ls -l $LLVM_ROOT_DIR/bin
+  - ls -l $($LLVM_ROOT_DIR/bin/llvm-config --prefix)/bin
   - pip install --user lit
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then ld --version; fi
   - cmake --version
