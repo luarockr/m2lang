@@ -2,11 +2,15 @@ dist: xenial
 language: cpp
 sudo: false
 
-matrix:
+jobs:
   include:
     - os: linux
       env: LLVM_VERSION=7.0.1
       compiler: gcc
+    - os: linux
+      env: LLVM_VERSION=7.0.1
+      compiler: gcc
+      arch: s390x
     - os: linux
       env: LLVM_VERSION=8.0.1
       compiler: clang
