@@ -12,7 +12,7 @@ jobs:
       compiler: clang
       arch: s390x
     - os: linux
-      env: LLVM_VERSION=8.0.1
+      env: LLVM_VERSION=9.0.0
       compiler: clang
       arch: ppc64le
 #    - os: linux
@@ -31,6 +31,8 @@ jobs:
 
 cache:
   directories:
+    - llvm-9.0.0-ppc64le
+    - llvm-9.0.0
     - llvm-8.0.1
     - llvm-7.0.1
     - llvm-7.0.0
@@ -60,12 +62,11 @@ before_install:
       export PATH="$PWD/ninja:$PATH"
     fi
     if [ ${TRAVIS_CPU_ARCH} = "s390x" ]; then
-      pip install --upgrade pip
     fi
 
 install:
   - |
-    export LLVM_ROOT_DIR="$PWD/llvm-$LLVM_VERSION"
+    export LLVM_ROOT_DIR="$PWD/llvm-$LLVM_VERSION-${TRAVIS_CPU_ARCH}"
     if  [ "${TRAVIS_OS_NAME}" = "windows" ]; then
       if [ ! -e "$LLVM_ROOT_DIR/bin/llvm-config.exe" ]; then
         wget -O llvm.7z https://github.com/ldc-developers/llvm/releases/download/ldc-v$LLVM_VERSION/llvm-$LLVM_VERSION-windows-x86-withAsserts-clang.7z
@@ -79,7 +80,11 @@ install:
           if [ "${LLVM_VERSION}" = "4.0.1" ]; then
             export LLVM_ARCH="x86_64-linux-gnu-debian8"
           else
-            export LLVM_ARCH="x86_64-linux-gnu-ubuntu-16.04"
+            if [ ${TRAVIS_CPU_ARCH} = "ppc64le" ]; then
+              export LLVM_ARCH="powerpc64le-linux-gnu-ubuntu-16.04"
+            else
+              export LLVM_ARCH="x86_64-linux-gnu-ubuntu-16.04"
+            fi
           fi
         else
           export LLVM_ARCH="x86_64-apple-darwin"
@@ -91,12 +96,12 @@ install:
       fi
     fi
   - export LLVM_CMAKE_DIR="$($LLVM_ROOT_DIR/bin/llvm-config --cmakedir)"
-  - pip install --user lit
+#  - pip install --user lit
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then ld --version; fi
   - cmake --version
   - ninja --version
   - python --version
-  - python -c "import lit; lit.main();" --version | head -n 1
+#  - python -c "import lit; lit.main();" --version | head -n 1
 
 script:
   # Invoke CMake to generate the Ninja build files.
