@@ -54,6 +54,11 @@ before_install:
       rm ninja-mac.zip
       export PATH="$PWD/ninja:$PATH"
     fi
+    if [ ${TRAVIS_CPU_ARCH} = "s390x"]; then
+      apt install clang-7
+      apt install clang-8
+      apt install clang-9
+    fi
 
 install:
   - |
@@ -65,7 +70,7 @@ install:
         7z x llvm.7z -o$LLVM_ROOT_DIR
         rm llvm.7z
       fi
-    else
+    elif [ ${TRAVIS_CPU_ARCH} -ne "s390x"]; then
       if [ ! -e "$LLVM_ROOT_DIR/bin/llvm-config" ]; then
         if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
           if [ "${LLVM_VERSION}" = "4.0.1" ]; then
