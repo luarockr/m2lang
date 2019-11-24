@@ -1,12 +1,12 @@
-dist: xenial
+dist: bionic
 language: cpp
 sudo: false
 
 jobs:
   include:
-    - os: linux
-      env: LLVM_VERSION=7.0.1
-      compiler: gcc
+#    - os: linux
+#      env: LLVM_VERSION=7.0.1
+#      compiler: gcc
     - os: linux
       env: LLVM_VERSION=8.0.1
       compiler: clang
@@ -14,16 +14,20 @@ jobs:
     - os: linux
       env: LLVM_VERSION=8.0.1
       compiler: clang
-    - os: osx
-      osx_image: xcode9.4
-      env: LLVM_VERSION=7.0.0
-    - os: osx
-      osx_image: xcode10.1
-      env: LLVM_VERSION=7.0.0
-    - os: windows
-      env: LLVM_VERSION=7.0.1
-  allow_failures:
-    - os: windows
+      arch: ppc64le
+#    - os: linux
+#      env: LLVM_VERSION=8.0.1
+#      compiler: clang
+#    - os: osx
+#      osx_image: xcode9.4
+#      env: LLVM_VERSION=7.0.0
+#    - os: osx
+#      osx_image: xcode10.1
+#      env: LLVM_VERSION=7.0.0
+#    - os: windows
+#      env: LLVM_VERSION=7.0.1
+#  allow_failures:
+#    - os: windows
 
 cache:
   directories:
@@ -56,13 +60,7 @@ before_install:
       export PATH="$PWD/ninja:$PATH"
     fi
     if [ ${TRAVIS_CPU_ARCH} = "s390x" ]; then
-      echo "${TRAVIS_CPU_ARCH}"
-      echo "${TRAVIS_OS_NAME}"
-      which python
-      cmake --version
-      ninja --version
-      python --version
-      which pip
+      pip install --upgrade pip
     fi
 
 install:
