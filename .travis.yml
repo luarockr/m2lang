@@ -15,6 +15,10 @@ jobs:
       env: LLVM_VERSION=9.0.0
       compiler: clang
       arch: ppc64le
+    - os: linux
+      env: LLVM_VERSION=9.0.0
+      compiler: clang
+      arch: amd64
 #    - os: linux
 #      env: LLVM_VERSION=8.0.1
 #      compiler: clang
@@ -61,7 +65,7 @@ before_install:
       rm ninja-mac.zip
       export PATH="$PWD/ninja:$PATH"
     fi
-    if [ ${TRAVIS_CPU_ARCH} = "s390x" ]; then
+    if [ "${TRAVIS_CPU_ARCH}" = "s390x" ]; then
       echo "On s390x"
     fi
 
@@ -75,7 +79,7 @@ install:
         7z x llvm.7z -o$LLVM_ROOT_DIR
         rm llvm.7z
       fi
-    elif [ ${TRAVIS_CPU_ARCH} -ne "s390x" ]; then
+    elif [ "${TRAVIS_CPU_ARCH}" -ne "s390x" ]; then
       if [ ! -e "$LLVM_ROOT_DIR/bin/llvm-config" ]; then
         if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
           if [ "${LLVM_VERSION}" = "4.0.1" ]; then
