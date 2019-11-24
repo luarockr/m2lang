@@ -62,6 +62,7 @@ before_install:
       export PATH="$PWD/ninja:$PATH"
     fi
     if [ ${TRAVIS_CPU_ARCH} = "s390x" ]; then
+      echo "On s390x"
     fi
 
 install:
